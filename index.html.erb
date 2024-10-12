@@ -1,0 +1,23 @@
+<h1 style="color: #3333ff;">Todo List</h1>
+
+<%= form_with model: @new_task, local: true do |form| %>
+  <div>
+    <%= form.label :name, "New Task", style: "color: #ff9933;" %>
+    <%= form.text_field :name, required: true, style: "border: 1px solid #ff9933;" %>
+  </div>
+  <%= form.submit "Create Task", style: "background-color: #3333ff; color: white;" %>
+<% end %>
+
+<h2 style="color: #ff9933;">Incomplete Tasks</h2>
+<% if @tasks.any? %>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li style="color: #666666;">
+        <%= task.name %> 
+        <%= link_to "Mark as Complete", complete_task_path(task), method: :patch, style: "color: #3333ff;" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No incomplete tasks available.</p>
+<% end %>
